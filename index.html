@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JSON Viewer Test</title>
+    <script src="./index.js" charset="utf-8"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Raleway">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+          <style>
+          body {
+            font-family: "Raleway";
+            font-size: 22px;
+            background-color: #243240;
+            color: whitesmoke;
+            margin: auto auto;
+            text-align: center;
+          }
+          </style>
+  </head>
+  <body>
+      <h1>WHO IS IN SPACE RIGHT NOW?</h1><br />
+      <button type="button" class="btn btn-danger">RAW JSON</button>
+      <button type="button" class="btn btn-info">Pretty Format</button>
+
+
+    <div id="container">
+        <h2>In JSON format:</h2>
+        <p id="jsonFormat"></p>
+        <h2>In pretty format</h2>
+        <h3 id="number"></h3>
+        <h3 id="name"></h3>
+        <h3 id="craft"></h3>
+        
+
+
+      
+
+    </div>
+    <script>
+        var url ='http://api.open-notify.org/astros.json'
+        var container = document.getElementById("jsonFormat");
+        var number = document.getElementById("number")
+        var name = document.getElementById("name")
+        var craft = document.getElementById("craft")
+
+
+        async function fetchData(){
+            let response = await fetch(url)
+            let data = await response.json()
+            return data
+        }
+
+        async function prettyJson(){
+          let respons = await fetch(url)
+          let data = await respons.json()
+          return data
+        }
+
+        fetchData()
+        .then(data => container.innerHTML = JSON.stringify(data) )
+        .catch(err => console.log(err))
+
+
+        prettyJson()
+        .then(data => number.innerHTML = "Number of People: " +  JSON.stringify(data.number))
+        .then(data => name.innerHTML = "Name: " + JSON.stringify(data.people.name))
+        .catch(err => console.log(err))
+            
+
+       
+       
+ 
+
+    </script>
+  </body>
+ 
+  </script>
+</html>
