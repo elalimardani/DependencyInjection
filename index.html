@@ -21,8 +21,8 @@
   </head>
   <body>
       <h1>WHO IS IN SPACE RIGHT NOW?</h1><br />
-      <button type="button" class="btn btn-danger">RAW JSON</button>
-      <button type="button" class="btn btn-info">Pretty Format</button>
+      <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
+      <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
 
 
     <div id="container">
@@ -40,7 +40,9 @@
     </div>
     <script>
         var url ='http://api.open-notify.org/astros.json'
-        var container = document.getElementById("jsonFormat");
+        var jsonBtn = document.getElementById("jsonBtn")
+        var prettyBtn = document.getElementById("prettyBtn")
+        var container = document.getElementById("jsonFormat")
         var number = document.getElementById("number")
         var name = document.getElementById("name")
         var craft = document.getElementById("craft")
