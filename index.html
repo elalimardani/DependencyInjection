@@ -32,32 +32,44 @@
         <h3 id="number"></h3>
         <h3 id="name"></h3>
         <h3 id="craft"></h3>
-        
-
-
-      
-
     </div>
     <script>
-        var url ='http://api.open-notify.org/astros.json'
-        var jsonBtn = document.getElementById("jsonBtn")
-        var prettyBtn = document.getElementById("prettyBtn")
+
+      const url ='http://api.open-notify.org/astros.json'
+      const jsonBtn = document.getElementById("jsonBtn")
+      const prettyBtn = document.getElementById("prettyBtn")
+      const container = document.getElementById("jsonFormat")
+
+      jsonBtn.addEventListener('click', () =>{
+          fetch(url)
+          .then(response => response.json())
+          .then( data => justJson(data))
+          });
+
+          function justJson(data){
+            container.innerHTML = JSON.stringify(data)
+          }
+
+
+   /*    async function fetchData(){
+        const response = await fetch(url)
+        const data = await response.json();
+      } */     
+/*      
         var container = document.getElementById("jsonFormat")
         var number = document.getElementById("number")
         var name = document.getElementById("name")
         var craft = document.getElementById("craft")
 
 
-        async function fetchData(){
+        var data = async function fetchData(){
             let response = await fetch(url)
             let data = await response.json()
-            return data
         }
 
-        async function prettyJson(){
+        var prettyData = async function prettyJson(){
           let respons = await fetch(url)
           let data = await respons.json()
-          return data
         }
 
         fetchData()
@@ -68,13 +80,8 @@
         prettyJson()
         .then(data => number.innerHTML = "Number of People: " +  JSON.stringify(data.number))
         .then(data => name.innerHTML = "Name: " + JSON.stringify(data.people.name))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err)) */
             
-
-       
-       
- 
-
     </script>
   </body>
  
