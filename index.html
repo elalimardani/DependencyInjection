@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <title>JSON Viewer Test</title>
-    <script src="./index.js" charset="utf-8"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Raleway">
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -24,8 +23,8 @@
       <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
       <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
 
-
-    <div id="container">
+    <div style="margin: 10% auto" id="json"></div>
+    <div id="pretty">
         <h2>In JSON format:</h2>
         <p id="jsonFormat"></p>
         <h2>In pretty format</h2>
@@ -38,49 +37,36 @@
       const url ='http://api.open-notify.org/astros.json'
       const jsonBtn = document.getElementById("jsonBtn")
       const prettyBtn = document.getElementById("prettyBtn")
-      const container = document.getElementById("jsonFormat")
+      const jsonContainer = document.getElementById("json")
+      const prettyContainer = document.getElementById("pretty")
+      const number = document.getElementById("number")
+      const name = document.getElementById("name")
+      const craft = document.getElementById("craft")
 
       jsonBtn.addEventListener('click', () =>{
           fetch(url)
           .then(response => response.json())
           .then( data => justJson(data))
+          .catch(err => console.log(err))
+
           });
 
           function justJson(data){
-            container.innerHTML = JSON.stringify(data)
+            jsonContainer.innerHTML = JSON.stringify(data)
           }
 
-
-   /*    async function fetchData(){
-        const response = await fetch(url)
-        const data = await response.json();
-      } */     
-/*      
-        var container = document.getElementById("jsonFormat")
-        var number = document.getElementById("number")
-        var name = document.getElementById("name")
-        var craft = document.getElementById("craft")
-
-
-        var data = async function fetchData(){
-            let response = await fetch(url)
-            let data = await response.json()
-        }
-
-        var prettyData = async function prettyJson(){
-          let respons = await fetch(url)
-          let data = await respons.json()
-        }
-
-        fetchData()
-        .then(data => container.innerHTML = JSON.stringify(data) )
+      prettyBtn.addEventListener('click', () =>{
+        fetch(url)
+        .then(response => response.json())
+        .then(data => pretty(data))
         .catch(err => console.log(err))
+      });
 
+        function pretty(data){
+          number.innerHTML = "Number of People: " +  JSON.stringify(data.number)
+          name.innerHTML = "Name: " + JSON.stringify(data.people.name)
+        }
 
-        prettyJson()
-        .then(data => number.innerHTML = "Number of People: " +  JSON.stringify(data.number))
-        .then(data => name.innerHTML = "Name: " + JSON.stringify(data.people.name))
-        .catch(err => console.log(err)) */
             
     </script>
   </body>
