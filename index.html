@@ -23,8 +23,8 @@
       <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
       <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
 
-    <div style="margin: 10% auto" id="json"></div>
-    <div id="pretty">
+    <div style="margin: 10% 10%; display: none" id="json"></div>
+    <div id="pretty" style="display: none;">
         <h2>In JSON format:</h2>
         <p id="jsonFormat"></p>
         <h2>In pretty format</h2>
@@ -43,29 +43,40 @@
       const name = document.getElementById("name")
       const craft = document.getElementById("craft")
 
-      jsonBtn.addEventListener('click', () =>{
-          fetch(url)
-          .then(response => response.json())
-          .then( data => justJson(data))
-          .catch(err => console.log(err))
 
+      async function getData(url){
+        const response = await fetch(url)
+        return response.json()
+      }
+
+
+      function Obj(){getData(url)
+        .then(data => {console.log(data)})
+      }
+       
+
+/*       Obj.prototype.data = fetch(url)
+      .then(res => res.json())
+      .then(data => obj = data) */
+     
+
+      
+      var newObj = new Obj()
+
+      jsonBtn.addEventListener('click', () =>{
+        //jsonContainer.style.display = "inline"
+        //jsonContainer.innerHTML = newObj.data
+        console.log(newObj)
           });
 
-          function justJson(data){
-            jsonContainer.innerHTML = JSON.stringify(data)
-          }
 
-      prettyBtn.addEventListener('click', () =>{
-        fetch(url)
-        .then(response => response.json())
-        .then(data => pretty(data))
-        .catch(err => console.log(err))
-      });
+      
 
-        function pretty(data){
+ /*      prettyBtn.addEventListener('click', () =>{
+        document.getElementById("number").style.display = "inline"
           number.innerHTML = "Number of People: " +  JSON.stringify(data.number)
-          name.innerHTML = "Name: " + JSON.stringify(data.people.name)
-        }
+      });
+ */
 
             
     </script>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JSON Viewer Test</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Raleway">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+          <style>
+          body {
+            font-family: "Raleway";
+            font-size: 22px;
+            background-color: #243240;
+            color: whitesmoke;
+            margin: auto auto;
+            text-align: center;
+          }
+          </style>
+  </head>
+  <body>
+
+    <script>
+        const url ='http://api.open-notify.org/astros.json'
+
+        window.onload = function(){
+
+            //httpRequest method"
+            var http = new XMLHttpRequest();
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200){
+                  // console.log(JSON.parse(http.response));     
+                }
+            };
+
+            http.open("GET", url, true);
+            http.send();
+
+
+            //jquery method:
+            $.get(url, function(data){
+                console.log(data);
+            });
+        };
+  
+            
+    </script>
+  </body>
+ 
+  </script>
+</html>
