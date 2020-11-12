@@ -44,11 +44,14 @@
       const craft = document.getElementById("craft")
 
 
+ 
+
       async function getData(url){
         const response = await fetch(url)
         return response.json()
       }
 
+      
 
       function Obj(){getData(url)
         .then(data => {console.log(data)})
