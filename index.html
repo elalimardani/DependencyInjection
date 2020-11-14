@@ -6,6 +6,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Raleway">
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
           <style>
           body {
@@ -23,64 +24,79 @@
       <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
       <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
 
-    <div style="margin: 10% 10%; display: none" id="json"></div>
-    <div id="pretty" style="display: none;">
-        <h2>In JSON format:</h2>
-        <p id="jsonFormat"></p>
-        <h2>In pretty format</h2>
-        <h3 id="number"></h3>
-        <h3 id="name"></h3>
-        <h3 id="craft"></h3>
-    </div>
-    <script>
 
+    <script>
       const url ='http://api.open-notify.org/astros.json'
       const jsonBtn = document.getElementById("jsonBtn")
       const prettyBtn = document.getElementById("prettyBtn")
-      const jsonContainer = document.getElementById("json")
-      const prettyContainer = document.getElementById("pretty")
-      const number = document.getElementById("number")
-      const name = document.getElementById("name")
-      const craft = document.getElementById("craft")
+
+      window.onload = function(){
+        jsonBtn.onclick = console.log("text button was clicked")
+        prettyBtn.onclick = console.log("pretty button was clicked")
+        }
+         
+
+      //data loader class, loads with jquery
+       function Data(url){
+        this.url = url;
+        this.action =() => $.ajax({
+              type: "GET", 
+              url: url,
+              success: function(data){
+                //console.log(data);
+                return data;
+              },
+              error: function(jqXHR, textStatus, error){
+                //console.log(error);
+              }
+            })
+        }
+        
+        //driver for buttons
+        function Driver(){
+          var data = new Data(url);
+          if(jsonBtn.clicked == true)
+          {
+            alert("text button was clicked");
+          } else if(prettyBtn.clicked == true){
+            alert("pretty button was clicked")
+          }
+        }
+
+        //simple output function
+        function simpleText(data){
+          var para = document.createElement("P")
+          para.innerHTML = data
+          document.body.appendChild(para)
+        }
+
+        //pretty output function
+        function prettyText(data){
+          var para = document.createElement("P")
+          para.innerHTML = data
+          document.body.appendChild(para)
+        }
 
 
- 
-
-      async function getData(url){
-        const response = await fetch(url)
-        return response.json()
-      }
-
+       /* var http = new XMLHttpRequest();
+      http.onreadystatechange = function(){
+          if(http.readyState == 4 && http.status == 200){
+           var data = JSON.parse(http.response)
+          //console.log(data)
+           return data
+          }
+      };
+      xhr.onerror = function (e) {
+      console.error(xhr.statusText);
+      };
       
-
-      function Obj(){getData(url)
-        .then(data => {console.log(data)})
-      }
-       
-
-/*       Obj.prototype.data = fetch(url)
-      .then(res => res.json())
-      .then(data => obj = data) */
-     
-
-      
-      var newObj = new Obj()
-
-      jsonBtn.addEventListener('click', () =>{
-        //jsonContainer.style.display = "inline"
-        //jsonContainer.innerHTML = newObj.data
-        console.log(newObj)
-          });
-
-
-    
- /*      prettyBtn.addEventListener('click', () =>{
-        document.getElementById("number").style.display = "inline"
-          number.innerHTML = "Number of People: " +  JSON.stringify(data.number)
-      });
- */
-
-            
+      http.open("GET", url, true);
+      http.send();
+   */
+  /*     $.get(url, function(data){
+          return data;
+      });  */
+          
     </script>
   </body>
  
