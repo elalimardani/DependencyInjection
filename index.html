@@ -19,7 +19,12 @@
           }
 
           P{
-            margin: 10% 10%;
+            margin: 5% 5%;
+            line-height:7vh;
+          }
+
+          h2{
+            color: #ff6964;
           }
           </style>
   </head>
@@ -27,6 +32,8 @@
       <h1>WHO IS IN SPACE RIGHT NOW?</h1><br />
       <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
       <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
+      <h2 id="head"></h2>
+      <p id="para"></p>
  
 
 
@@ -83,10 +90,15 @@
         var para2 = document.createElement("p")
         head.innerHTML = "Pretty text:"
         para.innerHTML = "Number of people: " + data.number
-
-          for(i=0; i<data.people.length; i++){
-            para2.innerHTML = data.people[i].name
-          }
+        para2.innerHTML = "Peopple: "  
+        for(var i=0; i<data.people.length; i++){
+         var obj = data.people[i]
+         var linebreak = document.createElement("br");
+         var name = data.people[i].name
+         var text = document.createTextNode(name)
+         para2.appendChild(linebreak)
+         para2.appendChild(text)
+        }  
 
         document.body.appendChild(head);
         document.body.appendChild(para); 
