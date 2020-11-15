@@ -17,56 +17,80 @@
             margin: auto auto;
             text-align: center;
           }
+
+          P{
+            margin: 10% 10%;
+          }
           </style>
   </head>
   <body>
       <h1>WHO IS IN SPACE RIGHT NOW?</h1><br />
       <button id="jsonBtn" type="button" class="btn btn-danger">RAW JSON</button>
       <button id="prettyBtn" type="button" class="btn btn-info">Pretty Format</button>
+ 
 
 
     <script>
-      const url ='http://api.open-notify.org/astros.json'
-      const jsonBtn = document.getElementById("jsonBtn")
-      const prettyBtn = document.getElementById("prettyBtn")
+      const url ='http://api.open-notify.org/astros.json';
 
-      window.onload = driver()
+
+      window.onload = driver();
         
-      //data loader class, loads with jquery
         function Data(url){
-        this.url = url;
-            var http = new XMLHttpRequest();
-            http.onreadystatechange = function(){
-                if(http.readyState == 4 && http.status == 200){
-                  let data = JSON.parse(http.response)
-                  return data 
-                }
-            }
-            http.open("GET", url, true)
-            http.send();
-          }
+			this.getUrl = function (callback) {
+			    httpRequest = new XMLHttpRequest();
+			        httpRequest.onreadystatechange = function () {
+			            if (httpRequest.readyState === 4) { // request is done
+			                if (httpRequest.status === 200) { // successfully
+			                    callback(httpRequest.responseText); // we're calling our method
+			                }
+			            }
+			        };
+			        httpRequest.open('GET', url);
+			        httpRequest.send();
+			};
+        }
         
         
         //driver for buttons
         function driver(){
-          var data = new Data(url)
-          jsonBtn.addEventListener("click", simpleText(data))
-          prettyBtn.addEventListener("click", prettyText(data))
+          var data = new Data(url);
+          data.getUrl(function (result) {
+          var jsonRaw = result;
+	    	  var jsonData = JSON.parse(result)
+
+	          document.getElementById("jsonBtn").onclick = function () { simpleText(result) };
+	          document.getElementById("prettyBtn").onclick = function () { prettyText(jsonData) };
+		  });
+
         }
 
  
         //simple output function
         function simpleText(data){
-          var para = document.createElement("P")
-          para.innerHTML = data
-          document.body.appendChild(para)
+          var head = document.createElement("h2")
+          var para = document.createElement("P");
+          head.innerHTML = "Simple text:"
+          para.innerHTML =  data;
+          document.body.appendChild(head);
+          document.body.appendChild(para);
         }
 
         //pretty output function
         function prettyText(data){
-          var para = document.createElement("P")
-          para.innerHTML = data
-          document.body.appendChild(para)
+        var head = document.createElement("h2")
+        var para = document.createElement("P");
+        var para2 = document.createElement("p")
+        head.innerHTML = "Pretty text:"
+        para.innerHTML = "Number of people: " + data.number
+
+          for(i=0; i<data.people.length; i++){
+            para2.innerHTML = data.people[i].name
+          }
+
+        document.body.appendChild(head);
+        document.body.appendChild(para); 
+        document.body.appendChild(para2); 
         }
 
     </script>
