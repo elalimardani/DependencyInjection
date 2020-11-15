@@ -28,21 +28,56 @@
 
             //httpRequest method"
             var http = new XMLHttpRequest();
-
             http.onreadystatechange = function(){
                 if(http.readyState == 4 && http.status == 200){
-                  // console.log(JSON.parse(http.response));     
+                  console.log(JSON.parse(http.response));  
                 }
             };
-
             http.open("GET", url, true);
             http.send();
+          
 
 
+            
             //jquery method:
-            $.get(url, function(data){
+         /*    $.get(url, function(data){
+                console.log(data.people);
+            });  */
+
+
+
+            //callback function:
+           /* function callback(val){
+              console.log(val);}
+
+            var fruits = ["banana", "apple", "pear"]
+             //sync:  
+            fruits.forEach(callback);          
+            console.log("done"); 
+
+             //async   
+            //with fetching data jquery
+             $.get(url, function(data){
                 console.log(data);
-            });
+            })  */
+            //or decalre function outside like the sync one
+            //$.get(url, callback);
+
+
+            //ajax
+            /* $.ajax({
+              type: "GET", 
+              url: url,
+              success: function(data){
+                console.log( data);
+              },
+              error: function(jqXHR, textStatus, error){
+                console.log(error);
+              }
+            }) */
+
+
+
         };
   
             
